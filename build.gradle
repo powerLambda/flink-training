@@ -26,7 +26,6 @@ subprojects {
         apply plugin: 'application'
     }
     apply plugin: 'com.github.johnrengelman.shadow'
-    apply plugin: 'checkstyle'
     apply plugin: 'eclipse'
 
     // artifact properties
@@ -36,7 +35,7 @@ subprojects {
 
     ext {
         javaVersion = '1.8'
-        flinkVersion = '1.11.0'
+        flinkVersion = '1.11.3'
         scalaBinaryVersion = '2.12'
         slf4jVersion = '1.7.15'
         log4jVersion = '1.2.17'
@@ -85,6 +84,13 @@ subprojects {
     dependencies {
         implementation "log4j:log4j:${log4jVersion}"
         implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+
+        // --------------------------------------------------------------
+        // Dependencies that should be part of the shadow jar, e.g.
+        // connectors. These must be in the flinkShadowJar configuration!
+        // --------------------------------------------------------------
+        //flinkShadowJar "org.apache.flink:flink-connector-kafka-0.11_${scalaBinaryVersion}:${flinkVersion}"
+        flinkShadowJar "org.apache.flink:flink-connector-kafka_2.11:${flinkVersion}"
 
         if (project != project(":common")) {
             implementation project(path: ':common')

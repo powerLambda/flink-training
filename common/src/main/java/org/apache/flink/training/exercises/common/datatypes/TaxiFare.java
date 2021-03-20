@@ -18,6 +18,8 @@
 
 package org.apache.flink.training.exercises.common.datatypes;
 
+import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.training.exercises.common.utils.DataGenerator;
 
 import java.io.Serializable;
@@ -39,6 +41,8 @@ import java.time.Instant;
  * - the totalFare
  */
 public class TaxiFare implements Serializable {
+
+	static ObjectMapper mapper = new ObjectMapper(); // create once, reuse
 
 	/**
 	 * Creates a TaxiFare with now as the start time.
@@ -97,6 +101,10 @@ public class TaxiFare implements Serializable {
 				tip + "," +
 				tolls + "," +
 				totalFare;
+	}
+
+	public String toJSONString() throws JsonProcessingException {
+		return mapper.writeValueAsString(this);
 	}
 
 	@Override
