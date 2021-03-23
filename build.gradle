@@ -30,7 +30,7 @@ subprojects {
 
     // artifact properties
     group = 'org.apache.flink'
-    version = '1.11-SNAPSHOT'
+    version = '1.12-0323'
     description = """Flink Training Exercises"""
 
     ext {

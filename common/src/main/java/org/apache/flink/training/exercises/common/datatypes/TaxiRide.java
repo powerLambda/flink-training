@@ -18,6 +18,8 @@
 
 package org.apache.flink.training.exercises.common.datatypes;
 
+import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.training.exercises.common.utils.DataGenerator;
 import org.apache.flink.training.exercises.common.utils.GeoUtils;
 
@@ -43,6 +45,8 @@ import java.time.Instant;
  * - the driverId
  */
 public class TaxiRide implements Comparable<TaxiRide>, Serializable {
+
+	static ObjectMapper mapper = new ObjectMapper(); // create once, reuse
 
 	/**
 	 * Creates a new TaxiRide with now as start and end time.
@@ -116,6 +120,10 @@ public class TaxiRide implements Comparable<TaxiRide>, Serializable {
 				passengerCnt + "," +
 				taxiId + "," +
 				driverId;
+	}
+
+	public String toJSONString() throws JsonProcessingException {
+		return mapper.writeValueAsString(this);
 	}
 
 	/**
